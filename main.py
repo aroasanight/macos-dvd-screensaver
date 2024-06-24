@@ -1,4 +1,4 @@
-import numpy, cv2, sys
+import numpy, cv2, sys, datetime
 from os import get_terminal_size as terminalsize
 from os import rename as renamefile
 from os import remove as deletefile
@@ -162,6 +162,7 @@ print("Video successfully converted")
 cont = input("\nWould you like to replace a screensaver now? (Y/n): ")
 
 if cont.lower() != "y":
+    renamefile('output_video.mov',"output/"+datetime.datetime.now().strftime("%Y-%m-%d-%H-%m-%s")+".mov")
     print("Exiting now.")
     print("Reference README.MD for instructions to manually copy the screensaver.")
     sys.exit()
