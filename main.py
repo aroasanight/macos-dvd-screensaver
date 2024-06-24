@@ -10,6 +10,8 @@ from moviepy.editor import VideoFileClip
 
 try: createfolder("output")
 except: pass
+try: createfolder("wd")
+except: pass
 
 def debug(inp):
     global debugon
@@ -91,7 +93,7 @@ for il in range(0,loop):
 
     image = rand(0,7)
 
-    out = cv2.VideoWriter('output_video.avi', cv2.VideoWriter_fourcc(*'XVID'), fps, (res[0], res[1]))
+    out = cv2.VideoWriter('wd/output_video.avi', cv2.VideoWriter_fourcc(*'XVID'), fps, (res[0], res[1]))
 
     def overlay_image(background, image, x, y):
         img_height, img_width = image.shape[:2]
@@ -160,15 +162,15 @@ for il in range(0,loop):
     print("\nVideo created successfully!")
     print("Converting .avi to .mov...")
 
-    VideoFileClip('output_video.avi').write_videofile('output_video.mov', codec='libx264')
-    deletefile('output_video.avi')
+    VideoFileClip('wd/output_video.avi').write_videofile('wd/output_video.mov', codec='libx264')
+    deletefile('wd/output_video.avi')
 
     print("Video successfully converted")
     if loop == 1: 
         cont = input("\nWould you like to replace a screensaver now? (Y/n): ")
 
         if cont.lower() != "y":
-            renamefile('output_video.mov',"output/"+datetime.datetime.now().strftime("%Y-%m-%d-%H-%m-%s")+".mov")
+            renamefile('wd/output_video.mov',"output/"+datetime.datetime.now().strftime("%Y-%m-%d-%H-%m-%s")+".mov")
             print("Exiting now.")
             print("Reference README.MD for instructions to manually copy the screensaver.")
             sys.exit()
@@ -248,13 +250,13 @@ for il in range(0,loop):
         print("Replacing "+friendlyname+" with your generated screensaver...")
         debug(filename)
 
-        renamefile('output_video.mov',"output/"+filename+".mov")
+        renamefile('wd/output_video.mov',"output/"+filename+".mov")
         print("\n\n\nIn 3 seconds, two Finder windows will open: drag the highlighted file "+filename+".mov into the '4KSDR240FPS' folder, clicking Replace if prompted.")
 
         wait(3)
 
         callcommand(["open", "/Library/Application Support/com.apple.idleassetsd/Customer/4KSDR240FPS"])
         callcommand(["open", "-R", "output/"+filename+".mov"])
-    else: renamefile('output_video.mov',"output/"+str(il)+" - "+datetime.datetime.now().strftime("%Y-%m-%d-%H-%m-%s")+".mov")
+    else: renamefile('wd/output_video.mov',"output/"+str(il)+" - "+datetime.datetime.now().strftime("%Y-%m-%d-%H-%m-%s")+".mov")
 
 if loop != 1: print("Videos generated. You'll find them in output/filename.mov.")
