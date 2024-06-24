@@ -73,7 +73,7 @@ if cont.lower() != "y":
 
 print("\nGenerating video. This process can take a long time.")
 
-image_path_base = 'svgtopng/dvdlogo-0'
+image_path_base = 'assets/dvdlogo-0'
 moving_image = []
 for i in range(1,9):
     moving_image.append(cv2.imread(image_path_base+str(i)+".png"))
